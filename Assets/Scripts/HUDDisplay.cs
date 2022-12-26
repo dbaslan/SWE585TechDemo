@@ -13,6 +13,7 @@ public class HUDDisplay : MonoBehaviour
     float timeleft;
     float fps;
     float farClipPlane = 10.0f;
+    //float 
     //float farClipPlane = GetComponent<farClipPlane>();
 
     // Use this for initialization
@@ -43,6 +44,7 @@ public class HUDDisplay : MonoBehaviour
     {
         //Display the fps and round to 2 decimals
         GUI.Label(new Rect(5, 5, 100, 25), fps.ToString("F2") + "FPS");
+        GUI.Label(new Rect(5, 30, 100, 50), "Rendering Distance: " + farClipPlane.ToString("F2"));
         //GUI.Label(new Rect(5, 5, 100, 25), farClipPlane.ToString("F2"));
     }
 }
