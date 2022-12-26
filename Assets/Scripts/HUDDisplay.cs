@@ -12,8 +12,7 @@ public class HUDDisplay : MonoBehaviour
     int frames = 0;
     float timeleft;
     float fps;
-    float farClipPlane = 10.0f;
-    //float 
+    int farClipPlane = 10;
     //float farClipPlane = GetComponent<farClipPlane>();
 
     // Use this for initialization
