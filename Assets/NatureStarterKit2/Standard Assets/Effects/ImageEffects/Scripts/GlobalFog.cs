@@ -11,7 +11,7 @@ namespace UnityStandardAssets.ImageEffects
 		[Tooltip("Apply distance-based fog?")]
         public bool  distanceFog = true;
 		[Tooltip("Exclude far plane pixels from distance-based fog? (Skybox or clear color)")]
-		public bool  excludeFarPixels = true;
+		public bool  excludeFarPixels = false;
 		[Tooltip("Distance fog is based on radial distance from camera when checked")]
 		public bool  useRadialDistance = false;
 		[Tooltip("Apply height-based fog?")]

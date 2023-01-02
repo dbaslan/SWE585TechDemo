@@ -103,7 +103,7 @@ namespace GreatArcStudios
         /// Inital render distance 
         /// </summary>
         internal static float renderDistINI;
-        /// <summary>
+        internal static float fogDensityINI;
         /// Inital AA quality 2, 4, or 8
         /// </summary>
         internal static float aaQualINI;
@@ -150,6 +150,7 @@ namespace GreatArcStudios
         public Slider terrainQualSlider;
         public Slider highQualTreeSlider;
         public Slider renderDistSlider;
+        public Slider fogDensitySlider;
         public Slider terrainDensitySlider;
         public Slider shadowDistSlider;
         public Slider audioMasterSlider;
@@ -332,6 +333,7 @@ namespace GreatArcStudios
             //get all ini values
             aaQualINI = QualitySettings.antiAliasing;
             renderDistINI = mainCam.farClipPlane;
+            fogDensityINI = RenderSettings.fogDensity;
             shadowDistINI = QualitySettings.shadowDistance;
             fovINI = mainCam.fieldOfView;
             msaaINI = QualitySettings.antiAliasing;
@@ -764,6 +766,7 @@ namespace GreatArcStudios
             fovSlider.value = mainCam.fieldOfView;
             modelQualSlider.value = QualitySettings.lodBias;
             renderDistSlider.value = mainCam.farClipPlane;
+            fogDensitySlider.value = RenderSettings.fogDensity;
             shadowDistSlider.value = QualitySettings.shadowDistance;
             masterTexSlider.value = QualitySettings.masterTextureLimit;
             shadowCascadesSlider.value = QualitySettings.shadowCascades;
@@ -820,6 +823,7 @@ namespace GreatArcStudios
             try
             {
                 mainCam.farClipPlane = renderDistINI;
+                RenderSettings.fogDensity = fogDensityINI;
                 Terrain.activeTerrain.detailObjectDensity = densityINI;
                 mainCam.fieldOfView = fovINI;
                 mainPanel.SetActive(true);
@@ -842,6 +846,7 @@ namespace GreatArcStudios
 
                 Debug.Log("A problem occured (chances are the terrain was not assigned )");
                 mainCam.farClipPlane = renderDistINI;
+                RenderSettings.fogDensity = fogDensityINI;
                 mainCam.fieldOfView = fovINI;
                 mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
@@ -883,6 +888,7 @@ namespace GreatArcStudios
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
             renderDistINI = mainCam.farClipPlane;
+            fogDensityINI = RenderSettings.fogDensity;
             shadowDistINI = QualitySettings.shadowDistance;
             Debug.Log("Shadow dist ini" + shadowDistINI);
             fovINI = mainCam.fieldOfView;
@@ -985,16 +991,25 @@ namespace GreatArcStudios
             try
             {
                 mainCam.farClipPlane = f;
-                //QualitySettings.shadowDistance = f;
-
             }
             catch
             {
                 Debug.Log(" Finding main camera now...it is still suggested that you manually assign this");
                 mainCam = Camera.main;
                 mainCam.farClipPlane = f;
-                //QualitySettings.shadowDistance = f;
+            }
 
+        }
+        public void updateFogDensity(float ff)
+        {
+            try
+            {
+                RenderSettings.fogDensity = ff;
+            }
+            catch
+            {
+                Debug.Log(" fogDensity error");
+                RenderSettings.fogDensity = ff;
             }
 
         }
