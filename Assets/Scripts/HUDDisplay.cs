@@ -12,8 +12,11 @@ public class HUDDisplay : MonoBehaviour
     int frames = 0;
     float timeleft;
     float fps;
-    int farClipPlane = 10;
+    //float renderDistance;
     //float farClipPlane = GetComponent<farClipPlane>();
+
+    public Camera mainCam;
+    public static Camera mainCamShared;
 
     // Use this for initialization
     void Start()
@@ -37,13 +40,15 @@ public class HUDDisplay : MonoBehaviour
             accum = 0.0f;
             frames = 0;
         }
+
+        //renderDistance = mainCam.farClipPlane;
     }
 
     void OnGUI()
     {
         //Display the fps and round to 2 decimals
-        GUI.Label(new Rect(5, 5, 100, 25), fps.ToString("F2") + "FPS");
-        GUI.Label(new Rect(5, 30, 100, 50), "Rendering Distance: " + farClipPlane.ToString("F2"));
+        GUI.Label(new Rect(5, 5, 100, 25), fps.ToString("F2") + " FPS");
+        GUI.Label(new Rect(5, 30, 100, 50), "Rendering Distance: " + mainCam.farClipPlane.ToString("F2"));
         //GUI.Label(new Rect(5, 5, 100, 25), farClipPlane.ToString("F2"));
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClippingDistanceSetter : MonoBehaviour
 {
-    public float farClipPlane = 10.0f;
+    public float farClipPlane = 20.0f;
 
     // Start is called before the first frame update
     void Start()
