@@ -520,6 +520,8 @@ namespace GreatArcStudios
             //Display the fps and round to 2 decimals
             GUI.Label(new Rect(5, 5, 100, 25), fps.ToString("F2") + " FPS", style);
             GUI.Label(new Rect(5, 50, 100, 70), "Rendering Distance: " + mainCam.farClipPlane.ToString("F2"), style);
+            GUI.Label(new Rect(5, 95, 100, 115), "Shadow Distance: " + QualitySettings.shadowDistance.ToString("F2"), style);
+            GUI.Label(new Rect(5, 140, 100, 160), "Resolution: " + Screen.currentResolution.width.ToString("F2") + " x " + Screen.currentResolution.height.ToString("F2"), style);
             //GUI.Label(new Rect(5, 5, 100, 25), farClipPlane.ToString("F2"));
         }
         /*
