@@ -138,6 +138,7 @@ namespace GreatArcStudios
         /// <summary>
         /// AA drop down menu.
         /// </summary>
+        internal static bool fogINI;
         public Dropdown aaCombo;
         /// <summary>
         /// Aniso drop down menu.
@@ -157,6 +158,7 @@ namespace GreatArcStudios
         public Slider masterTexSlider;
         public Slider shadowCascadesSlider;
         public Toggle vSyncToggle;
+        public Toggle fogToggle;
         public Toggle aoToggle;
         public Toggle dofToggle;
         public Toggle fullscreenToggle;
@@ -334,6 +336,7 @@ namespace GreatArcStudios
             fovINI = mainCam.fieldOfView;
             msaaINI = QualitySettings.antiAliasing;
             vsyncINI = QualitySettings.vSyncCount;
+            fogINI = RenderSettings.fog;
             //enable titles
             TitleTexts.SetActive(true);
             //Find terrain
@@ -519,9 +522,9 @@ namespace GreatArcStudios
             style.fontSize = (int)((float)Screen.width / 40);
             //Display the fps and round to 2 decimals
             GUI.Label(new Rect(5, 5, 100, 25), fps.ToString("F2") + " FPS", style);
-            GUI.Label(new Rect(5, 50, 100, 70), "Rendering Distance: " + mainCam.farClipPlane.ToString("F2"), style);
-            GUI.Label(new Rect(5, 95, 100, 115), "Shadow Distance: " + QualitySettings.shadowDistance.ToString("F2"), style);
-            GUI.Label(new Rect(5, 140, 100, 160), "Resolution: " + Screen.currentResolution.width.ToString("F2") + " x " + Screen.currentResolution.height.ToString("F2"), style);
+            GUI.Label(new Rect(5, 50, 100, 70), "Rendering Distance: " + mainCam.farClipPlane.ToString(), style);
+            GUI.Label(new Rect(5, 95, 100, 115), "Shadow Distance: " + QualitySettings.shadowDistance.ToString(), style);
+            GUI.Label(new Rect(5, 140, 100, 160), "Resolution: " + Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString(), style);
             //GUI.Label(new Rect(5, 5, 100, 25), farClipPlane.ToString("F2"));
         }
         /*
@@ -829,6 +832,7 @@ namespace GreatArcStudios
                 QualitySettings.antiAliasing = (int)aaQualINI;
                 QualitySettings.antiAliasing = msaaINI;
                 QualitySettings.vSyncCount = vsyncINI;
+                RenderSettings.fog = fogINI;
                 QualitySettings.masterTextureLimit = lastTexLimit;
                 QualitySettings.shadowCascades = lastShadowCascade;
                 Screen.fullScreen = isFullscreen;
@@ -849,6 +853,7 @@ namespace GreatArcStudios
                 QualitySettings.antiAliasing = (int)aaQualINI;
                 QualitySettings.antiAliasing = msaaINI;
                 QualitySettings.vSyncCount = vsyncINI;
+                RenderSettings.fog = fogINI;
                 QualitySettings.masterTextureLimit = lastTexLimit;
                 QualitySettings.shadowCascades = lastShadowCascade;
                 //Screen.fullScreen = isFullscreen;
@@ -889,6 +894,7 @@ namespace GreatArcStudios
             lastTexLimit = QualitySettings.masterTextureLimit;
             lastShadowCascade = QualitySettings.shadowCascades;
             vsyncINI = QualitySettings.vSyncCount;
+            fogINI = RenderSettings.fog;
             isFullscreen = Screen.fullScreen;
             try
             {
@@ -921,6 +927,20 @@ namespace GreatArcStudios
             else
             {
                 QualitySettings.vSyncCount = 0;
+            }
+
+        }
+
+        public void toggleFog(Boolean BB)
+        {
+            fogINI = RenderSettings.fog;
+            if (BB == true)
+            {
+                RenderSettings.fog = true;
+            }
+            else
+            {
+                RenderSettings.fog = false;
             }
 
         }
@@ -1419,9 +1439,9 @@ namespace GreatArcStudios
         public void setExtreme()
         {
             QualitySettings.SetQualityLevel(6);
-            //QualitySettings.shadowDistance = 800f;
+            QualitySettings.shadowDistance = 100f; // 800f;
             //QualitySettings.lodBias = 4.37f;
-            QualitySettings.shadowDistance = shadowDist[6];
+            QualitySettings.shadowDistance = 100f; //shadowDist[6];
             QualitySettings.lodBias = LODBias[6];
         }
 
