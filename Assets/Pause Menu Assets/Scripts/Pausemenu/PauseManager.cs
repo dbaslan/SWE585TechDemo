@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
 using UnityEditor;
-using System.Diagnostics;
+//using System.Diagnostics;
 //using UnityStandardAssets.ImageEffects;
 /// <summary>
 ///  Copyright (c) 2016 Eric Zhu 
@@ -289,6 +289,12 @@ namespace GreatArcStudios
         float fps;
         //float renderDistance;
         //float farClipPlane = GetComponent<farClipPlane>();
+
+        //PerformanceCounter cpuCounter;
+        //PerformanceCounter ramCounter;
+
+        //cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        //ramCounter = new PerformanceCounter("Memory", "Available MBytes");
 
         /// <summary>
         /// The start method; you will need to place all of your inital value getting/setting here. 
