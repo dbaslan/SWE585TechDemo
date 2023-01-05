@@ -134,7 +134,7 @@ namespace GreatArcStudios
         /// QualitySettings.vSyncCount = 0;
         /// </code>
         /// </summary>
-        internal static int vsyncINI;
+        internal static int vsyncINI = 0; // altered: was empty
         /// <summary>
         /// AA drop down menu.
         /// </summary>
@@ -329,7 +329,9 @@ namespace GreatArcStudios
             currentRes = Screen.currentResolution;
             //Debug.Log("ini res" + currentRes);
             resolutionLabel.text = Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString();
+            Screen.fullScreen = false;
             isFullscreen = Screen.fullScreen;
+            fullscreenToggle.isOn = Screen.fullScreen;
             //get initial screen effect bools
             lastAOBool = aoToggle.isOn;
             lastDOFBool = dofToggle.isOn;
@@ -344,7 +346,11 @@ namespace GreatArcStudios
             fovINI = mainCam.fieldOfView;
             msaaINI = QualitySettings.antiAliasing;
             vsyncINI = QualitySettings.vSyncCount;
+            vsyncINI = 0; // added
+            QualitySettings.vSyncCount = 0; // added
+            RenderSettings.fog = false; // added
             fogINI = RenderSettings.fog;
+            fogToggle.isOn = false; // added
             //enable titles
             TitleTexts.SetActive(true);
             //Find terrain
@@ -359,7 +365,7 @@ namespace GreatArcStudios
             lastTexLimit = QualitySettings.masterTextureLimit;
             //set last shadow cascade 
             lastShadowCascade = QualitySettings.shadowCascades;
-            saveSettings.LoadGameSettings(File.ReadAllText(Application.persistentDataPath + "/" + saveSettings.fileName));
+            // saveSettings.LoadGameSettings(File.ReadAllText(Application.persistentDataPath + "/" + saveSettings.fileName));
             try
             {
                 densityINI = Terrain.activeTerrain.detailObjectDensity;
@@ -508,7 +514,8 @@ namespace GreatArcStudios
                 }
                 Cursor.lockState = CursorLockMode.Locked;
             }
-
+         
+            /*
             timeleft -= Time.deltaTime;
             accum += Time.timeScale / Time.deltaTime;
             ++frames;
@@ -522,17 +529,18 @@ namespace GreatArcStudios
                 accum = 0.0f;
                 frames = 0;
             }
-
+            */
         }
         void OnGUI()
         {
             GUIStyle style = new();
-            style.fontSize = (int)((float)Screen.width / 40);
+            style.fontSize = (int)((float)Screen.width / 45);
             //Display the fps and round to 2 decimals
-            GUI.Label(new Rect(5, 5, 100, 25), fps.ToString("F2") + " FPS", style);
+            //GUI.Label(new Rect(5, 185, 100, 205), fps.ToString("F2") + " FPS", style);
             GUI.Label(new Rect(5, 50, 100, 70), "Rendering Distance: " + mainCam.farClipPlane.ToString(), style);
             GUI.Label(new Rect(5, 95, 100, 115), "Shadow Distance: " + QualitySettings.shadowDistance.ToString(), style);
             GUI.Label(new Rect(5, 140, 100, 160), "Resolution: " + Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString(), style);
+            GUI.Label(new Rect(5, 5, 100, 25), "Menu: Escape, Stats: Q", style);
             //GUI.Label(new Rect(5, 5, 100, 25), farClipPlane.ToString("F2"));
         }
         /*
@@ -776,7 +784,7 @@ namespace GreatArcStudios
             shadowDistSlider.value = QualitySettings.shadowDistance;
             masterTexSlider.value = QualitySettings.masterTextureLimit;
             shadowCascadesSlider.value = QualitySettings.shadowCascades;
-            fullscreenToggle.isOn = Screen.fullScreen;
+            // fullscreenToggle.isOn = Screen.fullScreen;
             aoToggle.isOn = aoBool;
             dofToggle.isOn = dofBool;
             if (QualitySettings.vSyncCount == 0)
@@ -785,7 +793,7 @@ namespace GreatArcStudios
             }
             else if (QualitySettings.vSyncCount == 1)
             {
-                vSyncToggle.isOn = true;
+                vSyncToggle.isOn = false; // altered: was true
             }
             try
             {
@@ -1172,9 +1180,9 @@ namespace GreatArcStudios
                 {
                     //Debug.Log("found " + i);
                     //If the user is playing fullscreen. Then set the resoution to one element higher in the array, set the full screen boolean to true, reset the current resolution, and then update the resolution label.
-                    if (isFullscreen == true) { Screen.SetResolution(allRes[i + 1].width, allRes[i + 1].height, true); isFullscreen = true; currentRes = Screen.resolutions[i + 1]; resolutionLabel.text = currentRes.width.ToString() + " x " + currentRes.height.ToString(); }
+                    if (isFullscreen == true) { Screen.SetResolution(allRes[i + 1].width, allRes[i + 1].height, true); isFullscreen = false; currentRes = Screen.resolutions[i + 1]; resolutionLabel.text = currentRes.width.ToString() + " x " + currentRes.height.ToString(); }
                     //If the user is playing in a window. Then set the resoution to one element higher in the array, set the full screen boolean to false, reset the current resolution, and then update the resolution label.
-                    if (isFullscreen == false) { Screen.SetResolution(allRes[i + 1].width, allRes[i + 1].height, false); isFullscreen = false; currentRes = Screen.resolutions[i + 1]; resolutionLabel.text = currentRes.width.ToString() + " x " + currentRes.height.ToString(); }
+                    if (isFullscreen == false) { Screen.SetResolution(allRes[i + 1].width, allRes[i + 1].height, false);/* isFullscreen = false; */currentRes = Screen.resolutions[i + 1]; resolutionLabel.text = currentRes.width.ToString() + " x " + currentRes.height.ToString(); }
 
                     //Debug.Log("Res after: " + currentRes);
                 }
@@ -1196,9 +1204,9 @@ namespace GreatArcStudios
 
                     //Debug.Log("found " + i);
                     //If the user is playing fullscreen. Then set the resoution to one element lower in the array, set the full screen boolean to true, reset the current resolution, and then update the resolution label.
-                    if (isFullscreen == true) { Screen.SetResolution(allRes[i - 1].width, allRes[i - 1].height, true); isFullscreen = true; currentRes = Screen.resolutions[i - 1]; resolutionLabel.text = currentRes.width.ToString() + " x " + currentRes.height.ToString(); }
+                    if (isFullscreen == true) { Screen.SetResolution(allRes[i - 1].width, allRes[i - 1].height, true); isFullscreen = false; currentRes = Screen.resolutions[i - 1]; resolutionLabel.text = currentRes.width.ToString() + " x " + currentRes.height.ToString(); }
                     //If the user is playing in a window. Then set the resoution to one element lower in the array, set the full screen boolean to false, reset the current resolution, and then update the resolution label.
-                    if (isFullscreen == false) { Screen.SetResolution(allRes[i - 1].width, allRes[i - 1].height, false); isFullscreen = false; currentRes = Screen.resolutions[i - 1]; resolutionLabel.text = currentRes.width.ToString() + " x " + currentRes.height.ToString(); }
+                    if (isFullscreen == false) { Screen.SetResolution(allRes[i - 1].width, allRes[i - 1].height, false); /*isFullscreen = false; */currentRes = Screen.resolutions[i - 1]; resolutionLabel.text = currentRes.width.ToString() + " x " + currentRes.height.ToString(); }
 
                     //Debug.Log("Res after: " + currentRes);
                 }
