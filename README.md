@@ -1,5 +1,11 @@
 # SWE585TechDemo
-A simple tech demo made in Unity 2021.8.11f1 LTS for SWE585, includes build for Windows (x64)
+A simple tech demo made in Unity 2021.8.11f1 LTS for SWE585, includes build for Windows (x64).
+
+The bulk of the newly implemented functions, such as toggleFog, updateFogDensity, OnGUI are in [PauseManager.cs](https://github.com/dbaslan/SWE585TechDemo/blob/main/Assets/Pause%20Menu%20Assets/Scripts/Pausemenu/PauseManager.cs).
+
+The demo lets the user control a character in an animated 3D environment and adjust rendering distance, shadow distance, resolution and fog dynamically, while displaying FPS and RAM usage. This allows the observation of the effect that rendering has on performance.
+
+A short demonstration is available on [YouTube](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
 
 # Assets Used:
 
