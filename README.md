@@ -1,4 +1,4 @@
-# SWE585TechDemo
+# SWE585TechDemo - "Rendering Distance and Performance"
 A simple tech demo made in Unity 2021.8.11f1 LTS for SWE585, includes build for Windows (x64).
 
 The bulk of the newly implemented functions, such as toggleFog, updateFogDensity, OnGUI are in [PauseManager.cs](https://github.com/dbaslan/SWE585TechDemo/blob/main/Assets/Pause%20Menu%20Assets/Scripts/Pausemenu/PauseManager.cs).
