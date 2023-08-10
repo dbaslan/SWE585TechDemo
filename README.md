@@ -14,3 +14,6 @@ A short video demonstration is available on [YouTube](https://www.youtube.com/wa
 - [Nature Starter Kit 2 (Shapes)](https://assetstore.unity.com/packages/3d/environments/nature-starter-kit-2-52977)
 - [Open Source Pause Menu (Eric Zhu)](https://assetstore.unity.com/packages/tools/gui/open-source-pause-menu-59478)
 - [Simple Low Poly Nature Pack (NeutronCat)](https://assetstore.unity.com/packages/3d/environments/landscapes/simple-low-poly-nature-pack-157552#content)
+
+# Online Deployment:
+The demo has been deployed online using the Kubernetes Engine on Google Cloud Platform. For more information, see [SWE590Cloud](https://github.com/dbaslan/SWE590Cloud).
